@@ -1,8 +1,8 @@
-# Starter folder
+# Study on The Effectiveness of Government Regulation of Dine Safety
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
+This repo determines whether government regulation is effective by analyzing the consistency between the geographic location of stores and the geographic location of government inspections.
 
 
 ## File Structure
@@ -19,12 +19,4 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-I don't use LLM.
-
-## Some checks
-
-- [ ] Change the rproj file name so that it's not starter_folder.Rproj
-- [ ] Change the README title so that it's not Starter folder
-- [ ] Remove files that you're not using
-- [ ] Update comments in R scripts
-- [ ] Remove this checklist
+I use Chatgpt to teach myself how to make a table, and also use Chatgpt to teach myself how to delete files on Github.
