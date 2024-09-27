@@ -1,11 +1,11 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw data of "Dinesafe"
+# Author: Ruikang Wang(1008238872)
+# Date: 27 September 2024
+# Contact: ruikang.wang@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: tidyverse, here
+# Any other information needed? None
 
 #### Workspace setup ####
 library(tidyverse)
@@ -14,7 +14,7 @@ library(here)
 
 
 #### Clean Data ####
-data <- read_csv(here("data", "raw_data", "raw_data.csv"))
+data <- read_csv(here("data", "raw_data", "raw_dinesafe_data.csv"))
 dinesafe <- data %>% 
   select(`Establishment ID`, `Establishment Name`, 
          `Establishment Type`, `Establishment Status`,

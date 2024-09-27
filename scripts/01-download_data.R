@@ -1,11 +1,11 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from Open Toronto "Dinesafe"
+# Author: Ruikang Wang(1008238872)
+# Date: 27 September 2024
+# Contact: ruikang.wang@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: tidyverse, dplyr, opendatatoronto, here, readr
+# Any other information needed? None
 
 
 #### Workspace setup ####
@@ -14,8 +14,6 @@ library(tidyverse)
 library(dplyr)
 library(here)
 library(readr)
-library(ggplot2)
-
 
 
 #### Download data ####
@@ -31,9 +29,8 @@ data <- filter(datastore_resources, row_number()==1) %>% get_resource()
 
 
 #### Save data ####
-# [...UPDATE THIS...]
 # change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(data,here("data", "raw_data", "raw_data.csv")) 
+write_csv(data,here("data", "raw_data", "raw_dinesafe_data.csv")) 
 
 
 
