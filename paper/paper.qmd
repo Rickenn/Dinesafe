@@ -2,8 +2,8 @@
 title: "Study on The Effectiveness of Government Regulation of Dine Safety"
 author: 
   - Ruikang Wang (1008238872)
-thanks: "Code and data are available at: LINK."
-date: today
+thanks: "Code and data are available at: https://github.com/Rickenn/Dinesafe."
+date: 27 September 2024
 date-format: long
 abstract: "The 'Dinesafe' data was retrieved from Open Data Toronto to study the health and safety of the restaurant industry in Toronto in recent years, as well as government regulatory efforts. The government's approach to food safety inspections, the inspection criteria and the key inspection targets are all very rigorous and reasonable, but food safety is still an issue that needs to be emphasized in Toronto."
 format: pdf
@@ -32,18 +32,16 @@ dinesafe_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
-
-The remainder of this paper is structured as follows. @sec-data....
-
-Humans have been searching for food since they were born. Food has been a vital part of human history, whether for sustenance in poverty or for enjoyment in affluence. Contaminated food often brings disease, and in more serious cases can even kill us outright, and the problem is serious enough to warrant global attention (Aikaterini 2023). In 2010 alone, Thirty-one foodborne hazards caused 600 million cases of foodborne illnesses and 420 million deaths (Havelaar 2015). The Canadian government clearly recognizes the seriousness of the food safety issue and regularly inspects the vast majority of the restaurant industry. In this paper, we will based on the data in dataset 'Dinesafe' to find out the safer and less safe areas for food and beverage industry in the Toronto area. Moreover, this paper will try to statistically evaluate how reasonable the Toronto government's food safety efforts are and whether they can be improved.
+Humans have been searching for food since they were born. Food has been a vital part of human history, whether for sustenance in poverty or for enjoyment in affluence. Contaminated food often brings disease, and in more serious cases can even kill us outright, and the problem is serious enough to warrant global attention [@ANAGNOSTOU2023403]. In 2010 alone, Thirty-one foodborne hazards caused 600 million cases of foodborne illnesses and 420 million deaths [@kuchenmuller2009estimating]. The Canadian government clearly recognizes the seriousness of the food safety issue and regularly inspects the vast majority of the restaurant industry. In this paper, we will based on the data in dataset 'Dinesafe' to find out the safer and less safe areas for food and beverage industry in the Toronto area. Moreover, this paper will try to statistically evaluate how reasonable the Toronto government's food safety efforts are and whether they can be improved.
 
 
 
 # Data {#sec-data}
-In order to get a better overview of the food safety situation in Toronto restaurants and to know what kind of inspections the Toronto government has done in the restaurant industry, i used the "Dinesafe" data from Open Data Toronto [@opendatatoronto]. The raw data of “Dinesafe” contains all the inspection results from 2001 to September 24, 2024, but because the amount of data is too large and too far back in time to analyze the data in today's reality, I chose 32,000 data from 2022 to 2024 years to generated a raw data file. Even so, there's still tons of data in this data that I don't need, such as “_id”, “Inspection Date”, and so on. In order to make the data more concise, I started cleaning data by the statistic software R [@citeR], tidyverse [@tidyverse], and here[@here]. Then this clean data only contains the variables I need like “Severity”, “Latitude”, “Longitude “ and so on.
+
+In order to get a better overview of the food safety situation in Toronto restaurants and to know what kind of inspections the Toronto government has done in the restaurant industry, i used the "Dinesafe" data from Open Data Toronto [@opendatatoronto]. The raw data of “Dinesafe” contains all the inspection results from 2001 to September 24, 2024, but because the amount of data is too large and too far back in time to analyze the data in today's reality, I chose 32,000 data from 2022 to 2024 years to generated a raw data file. Even so, there's still tons of data in this data that I don't need, such as “_id”, “Inspection Date”, and so on. In order to make the data more concise, I started cleaning data by the statistic software R [@citeR], tidyverse [@tidyverse], and here [@here]. Then this clean data only contains the variables I need like “Severity”, “Latitude”, “Longitude “ and so on.
 
 In order to get a simple idea of the overall hygiene of restaurants in Toronto, I have categorized each restaurant into five types of hygiene problems based on the data: “S - Significant”, “C - Crucial”, “M - Minor I categorized each shop according to the data into “S - Significant”, “C - Crucial”, “M - Minor”, “NA” and “NA - Not Applicable”. “S - Significant” is the most serious problem and ‘NA’ means this restaurant has no problem, and counts the number of results detected by the Toronto government for each.
+
 ```{r}
 #| label: tbl-1
 #| echo: false
@@ -58,9 +56,7 @@ kable(severity_count, caption = "Number of Occurrences of Each Category in Sever
 
 ```
 
-
 According to @tbl-1 we can find that the restaurants with light health problems (M - Minor) in the Toronto restaurant industry is the most, there are 11,837, accounting for 36.99% of the total number of inspections; the second highest percentage is the restaurants that fully passed the health inspection (NA), there are 11,829, accounting for 36.97% of the total number of inspections, and the rest of the order of the number of stores in order of quantity are the stores with the most serious problems (S - Significant), 6090, 19.03%; stores whose inspection standards do not allow reasonable detection of the store's condition (NA - Not Applicable), 1,395, 4.36%; and stores with more serious problems (C - Crucial),  849, 2.65%. 
-
 
 
 
@@ -72,12 +68,12 @@ Starting with the conclusion that the Toronto government takes the issue of rest
 
 # Discussion
 
-## First discussion point {#sec-first-point}
+## Distrubution of Offending Restaurant {#sec-first-point}
 
 Since there is nothing wrong with the testing methods and testing standards, what are the reasons for the public's food hygiene not being well protected? My guess might be that it's because the addresses highlighted for inspection are not the same as the ones that really have serious hygiene issues. In order to test this assumption, we first have to know in which region the food hygiene problems are occurring. 
-Use the dataset “Dinesafe” [@opendatatoronto] to flit out the data whose “Severity” is “S - Significant”, and use their “Latitude” and “Longitude” as x-axis and y-axis, and then we will generate @LOS, which is a scatter plot with latitude ranging from 43.55 to 43.90 and longitude ranging from -79.7 to -79.1, where each point is the geographic location of the store with the most serious food hygiene problems.
+Use the dataset “Dinesafe” [@opendatatoronto] to flit out the data whose “Severity” is “S - Significant”, and use their “Latitude” and “Longitude” as x-axis and y-axis, and then we will generate @fig-1, which is a scatter plot with latitude ranging from 43.55 to 43.90 and longitude ranging from -79.7 to -79.1, where each point is the geographic location of the store with the most serious food hygiene problems, by ggplot2 [@ggplot2].
 ```{r}
-#| label: LOS
+#| label: fig-1
 #| echo: false
 #| warning: false
 #| message: false
@@ -86,16 +82,16 @@ dinesafe_data %>%
   ggplot(aes(x = Latitude, y = Longitude, color = Severity)) +
     geom_point(alpha = 0.6) +
     labs(
-      title = "Locations of Restaurants with Significant Severity",
+      title = "ations of Restaurants with Significant Severity",
       x = "Latitude",
       y = "Longitude") +
     scale_color_manual(values = c("S - Significant" = "red")) +
     theme_minimal()
 ```
-@LOS shows that a large number of restaurants with serious health problems are clustered in the range of latitude [43.63:43.68] and longitude [-79.45:-79.35], and that there is a clear straight line spread from latitude 43.65 to 43.80 on longitude -79.4.
-Now we use the same method to make a map of the location of restaurants with more critical health issues (C - Crucial), @LOC.
+@fig-1 shows that a large number of restaurants with serious health problems are clustered in the range of latitude [43.63:43.68] and longitude [-79.45:-79.35], and that there is a clear straight line spread from latitude 43.65 to 43.80 on longitude -79.4.
+Now we use the same method to make a map of the location of restaurants with more critical health issues (C - Crucial), @fig-2.
 ```{r}
-#| label: LOC
+#| label: fig-2
 #| echo: false
 #| warning: false
 #| message: false
@@ -110,10 +106,10 @@ dinesafe_data %>%
     scale_color_manual(values = c("C - Crucial" = "orange")) +
     theme_minimal()
 ```
-Unfortunately, because the amount of data for C - Crucial is so much less compared to S - Sgnificant, based on @LOC we can conclude that there are some C - Crucial restaurants clustered around (43.65, -79.4), but that hardly tells us anything.
-To compensate for the small amount of data, this time we choose to graph the M - Minor restaurant, which has the largest amount of data, and obtain @LOM.
+Unfortunately, because the amount of data for C - Crucial is so much less compared to S - Sgnificant, based on @fig-2 we can conclude that there are some C - Crucial restaurants clustered around (43.65, -79.4), but that hardly tells us anything.
+To compensate for the small amount of data, this time we choose to graph the M - Minor restaurant, which has the largest amount of data, and obtain @fig-3.
 ```{r}
-#| label: LOM
+#| label: fig-3
 #| echo: false
 #| warning: false
 #| message: false
@@ -129,13 +125,13 @@ dinesafe_data %>%
     theme_minimal()
 ```
 This time we find that M - Minor Restaurant not only has a very similar coordinate range to S - Sgnificant Restaurant, but also has the straight line trace propagation between [(43.65,-79.5):(43.70,-79.25)], [(43.70,-79.45):(43.75,-79.2)].
-Combining these three graphs illustrates that the vast majority of stores detected with hygiene problems are distributed in the range of latitude [43.63:43.68] versus longitude [-79.45:-79.35], and also locat as a stright line from latitude 43.65 to 43.80 on longitude -79.4.
+Combining these three graphs illustrates that the vast majority of stores detected with hygiene problems are distributed in the range of latitude [43.63:43.68] versus longitude [-79.45:-79.35], and also locate as a stright line from latitude 43.65 to 43.80 on longitude -79.4.
 
-## Second discussion point
+## Focus of Inspections
 
-After figuring out the distribution of restaurants, we need to find those places that the government focuses on monitoring. I took the restaurants in the dataset where “Min. Inspections Per Year” was 3 and 2, divided the 3's into one group and the 2's into another, and plotted them against the latitude and longitude of the corresponding data. I got @LOI3 and @LOI2.
+After figuring out the distribution of restaurants, we need to find those places that the government focuses on monitoring. I took the restaurants in the dataset where “Min. Inspections Per Year” was 3 and 2, divided the 3's into one group and the 2's into another, and plotted them against the latitude and longitude of the corresponding data. I got @fig-4 and @fig-5.
 ```{r}
-#| label: LOI3
+#| label: fig-4
 #| echo: false
 #| warning: false
 #| message: false
@@ -153,7 +149,7 @@ dinesafe_data %>%
 
 
 ```{r}
-#| label: LOI2
+#| label: fig-5
 #| echo: false
 #| warning: false
 #| message: false
@@ -171,9 +167,9 @@ dinesafe_data %>%
 We were surprised to find that whether it was the address of the restaurant that the government focused on three times, or the address that was inspected two times, they were all equally in the range of latitude [43.63:43.68] versus longitude [-79.45:-79.35], and also locate as a stright line from latitude 43.65 to 43.80 on longitude -79.4.
 
 
-## Third discussion point
+## Why Not Perfect?
 
-By comparing the five figures above, we can see that @LOI3 is not only very similar to @LOS, but also covers the points of @LOC. And at the same time, @LOI2 is almost identical to @LOM. This shows that the government has not only focused on inspecting S - Sgnificant and C - Crucial restaurants, even M - Minor restaurants have not been missed. This shows that the inspection methods of  government, the inspection criteria and the targets of inspection are all reasonable. Then there is only one more reason why the food safety problem has not been fully solved, and that is the lack of punishment by the government. For the offending restaurants, the cost of rectifying their mistakes is much higher than the cost of government penalties, so they choose not to rectify the situation. If the Government intends to tackle the problem of food safety, it needs to increase the amount of penalties and step up enforcement.
+By comparing the five figures above, we can see that @fig-4 is not only very similar to @fig-1, but also covers the points of @fig-2. And at the same time, @fig-5 is almost identical to @fig-3. This shows that the government has not only focused on inspecting S - Sgnificant and C - Crucial restaurants, even M - Minor restaurants have not been missed. This shows that the inspection methods of  government, the inspection criteria and the targets of inspection are all reasonable. Then there is only one more reason why the food safety problem has not been fully solved, and that is the lack of punishment by the government. For the offending restaurants, the cost of rectifying their mistakes is much higher than the cost of government penalties, so they choose not to rectify the situation. If the Government intends to tackle the problem of food safety, it needs to increase the amount of penalties and step up enforcement.
 
 ## Weaknesses and next steps
 
@@ -181,6 +177,7 @@ The data and images only show that there is no error in the way the government i
 As a next step, we need to look into the data related to government penalties and compare it with the results we are now coming up with.
 
 \newpage
+
 
 
 # References
