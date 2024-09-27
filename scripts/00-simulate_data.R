@@ -11,15 +11,17 @@
 #### Workspace setup ####
 library(tidyverse)
 library(dplyr)
+library(here)
 
 
 
 #### Simulate data ####
 set.seed(872)
-min_inspections <- sample(1:5, size = 1000, replace = TRUE)
+min_inspections <- sample(1:5, size = 1000, replace = TRUE) 
 latitude <- runif(1000, min = 43, max = 44)
 longitude <- runif(1000, min = -79.5, max = -79)
 
+#Create a new set to storage all simulated data
 simulated_data <- data.frame(
   Min_Inspections_Per_Year = min_inspections,
   Latitude = latitude,

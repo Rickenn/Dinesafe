@@ -12,6 +12,7 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
+library(here)
 
 
 
@@ -21,10 +22,12 @@ simulate <- read_csv(here("data", "raw_data", "raw_simulate_data.csv"))
 
 
 #### Test data ####
+#If data has missing value, or data type is not i want
 if (any(is.na(simulate))) {
-  print("The dataset has missing values.") #If data has missing value
-  print(colSums(is.na(simulated_data)))
-} else { #If data doesn't have missing value
+  print("The dataset has missing values.")
+  print(colSums(is.na(simulate)))
+#If data is work
+} else {
 ggplot(simulate, aes(x = Longitude, y = Latitude, color = factor(Min_Inspections_Per_Year))) +
   geom_point(alpha = 0.6, size = 3) +
   labs(
